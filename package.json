@@ -1,0 +1,30 @@
+{
+  "name": "dongho",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "ductung"
+  ],
+  "homepage": "https://github.com/dtung05/DongHo#readme",
+  "bugs": {
+    "url": "https://github.com/dtung05/DongHo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtung05/DongHo.git"
+  },
+  "license": "ISC",
+  "author": "Đức Tùng",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
