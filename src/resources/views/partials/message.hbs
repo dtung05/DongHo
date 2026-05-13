@@ -1,0 +1,43 @@
+{{#if message}}
+    <div
+        class="system-message {{#if type}}success{{else}}error{{/if}}"
+        id="systemMessage"
+    >
+        <div class="system-message-left">
+
+            {{#if type}}
+                <div class="system-message-icon">✓</div>
+            {{else}}
+                <div class="system-message-icon">!</div>
+            {{/if}}
+
+            <div class="system-message-text">
+                {{message}}
+            </div>
+
+        </div>
+
+        <button
+            class="system-message-close"
+            onclick="closeMessage()"
+        >
+            ×
+        </button>
+    </div>
+
+    <script>
+        const systemMessage = document.getElementById('systemMessage');
+
+        setTimeout(() => {
+            if(systemMessage){
+                systemMessage.remove();
+            }
+        }, 3000);
+
+        function closeMessage(){
+            if(systemMessage){
+                systemMessage.remove();
+            }
+        }
+    </script>
+{{/if}}

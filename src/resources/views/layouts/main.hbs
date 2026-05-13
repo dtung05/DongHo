@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap"
+        rel="stylesheet" >
+
+    <link rel="stylesheet" href="client/css/header_footer.css">
+    {{#if style}}
+    <link rel="stylesheet" href="/client/css/{{style}}.css">
+    {{/if}}
+
+</head>
+
+<body class="layout">
+    <header class="layout-header">
+       {{>header}}
+    </header>
+    {{> message}}
+    <main class="layout-main">
+        <section class="layout-content">
+           {{{body}}}
+        </section>
+    </main>
+    <footer class="layout-footer">
+      {{>footer}}
+    </footer>
+    {{#if script }}
+        <script src="/client/js/{{script}}.js"></script>
+    {{/if}}
+
+    <script src="/client/js/main.js"></script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>
