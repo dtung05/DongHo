@@ -26,7 +26,7 @@ class OrderController{
         if(ketqua){
             return res.redirect('/order/index');
         }
-        return res.redirect(req.get("referer") || "/");
+        return res.redirect("/");
         
     }
 }

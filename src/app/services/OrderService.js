@@ -99,8 +99,7 @@ class OrderService {
           _id: {
             $in: ids,
           },
-        })
-        .lean();
+        }).lean();
       // check truy vấn
       if (dongHo.length < 1) {
         req.flash("message", "Lỗi truy vấn");
@@ -109,6 +108,10 @@ class OrderService {
       // lấy ra dữ liệu sản phẩm
       let order = [];
       dongHo.forEach((item) => {
+        if(item.soLuong < orders[item._id]){
+          req.flash("message", item.tenDongHo+" không đủ số lượng");
+          return false;
+        }
         order.push({
           idSanPham: item._id,
           tenSanPham: item.tenDongHo,
@@ -139,8 +142,17 @@ class OrderService {
       });
       if (ketqua) {
         req.flash("message", "Tạo đơn hàng thành công");
-        return true;
+        await Promise.all(
+        dongHo.map(item => {
+           return dongho.updateOne({_id: item._id},
+              {$inc: {
+                    soLuong: -orders[item._id]}
+              }
+           );})
+         );
+        return true;   
       }
+      console.log(dongHo);
       req.flash("message", "Tạo đơn hàng thất bại");
       return false;
     } catch (error) {
