@@ -6,7 +6,7 @@ class UserController{
         const ketQua = await UserService.authLogin(req);
         req.flash("message", ketQua.message);
         req.flash("type", ketQua.check);
-        return res.redirect("/");
+        return res.redirect(req.get("referer") || "/");
     }
 
     async dangKy(req, res, next) {
@@ -16,16 +16,14 @@ class UserController{
         return res.redirect("/");
     }
     logOut(req, res, next) {
-    req.session.destroy((err) => { // xóa bên server
-        if (err) {
-            return next(err);
-        }
 
-        res.clearCookie("connect.sid"); // xóa bên người dùng
-        req.flash("message", "Đăng xuất thành công");
-        req.flash("type", true);
-        return res.redirect("/");
-    });
+    delete req.session.user;
+
+    req.flash("message", "Đăng xuất thành công");
+    req.flash("type", true);
+
+    return res.redirect("/");
 }
 }
+
 module.exports = new UserController();

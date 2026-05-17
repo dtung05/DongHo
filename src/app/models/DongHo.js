@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const DongHoSchema = new Schema(
   {
     idLoai: {
-      type: Schema.Types.ObjectId,
-      ref: "LoaiDongHo",
+      type: String,
+      ref: "loaiDongHo",
     },
     tenDongHo: {
       type: String,
@@ -16,12 +16,12 @@ const DongHoSchema = new Schema(
     },
     giaGoc: Number,
     soLuong: { type: Number, require: true },
-     anhMoTa: String,
+    anhMoTa: String,
     trangThai: {
       type: String,
       default: "Còn hàng",
     },
-    tyLeGiamGia: Number,
+    tyLeGiamGia: { type: Number, default: 0}
   },
   {
     collection: "dongHo",

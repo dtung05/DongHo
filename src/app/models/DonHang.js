@@ -18,7 +18,7 @@ const DonHang = new Schema(
       type: String,
       default: "Chờ xác nhận",
     },
-
+// COD or BANK
     phuongThuc: {
       type: String,
     },
@@ -39,6 +39,35 @@ const DonHang = new Schema(
       type: Date,
       default: Date.now,
     },
+    dongHo: [{
+          idSanPham: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "DongHo",
+          required: true,
+        },
+      
+        tenSanPham: {
+          type: String,
+        },
+      
+        thanhTien: {
+          type: Number,
+        },
+      
+        soTienGiam: {
+          type: Number,
+          default: 0,
+        },
+      
+        soLuong: {
+          type: Number,
+          default: 1,
+        },
+      
+        img: {
+          type: String,
+        },
+  }],
   },
   {
     collection: "donHang",

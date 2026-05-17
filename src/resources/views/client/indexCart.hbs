@@ -1,0 +1,103 @@
+<main class="cart">
+  <div class="cart-wrap">
+    <div class="cart-left">
+      <div class="cart-header-bar">
+        <input type="checkbox" id="check-all" title="Chọn tất cả">
+        <label for="check-all">Chọn tất cả ({{data.length}} sản phẩm)</label>
+      </div>
+      {{#if data}}
+        {{#each data}}
+        <div class="cart-item">
+          <div class="cart-check">
+            <input
+              type="checkbox"
+              class="cart-checkbox"
+              data-id="{{dongHo._id}}"
+              data-price="{{dongHo.giaBan}}"
+              data-qty="{{soLuongMua}}"
+            >
+          </div>
+          <div class="cart-image">
+            <a href="/san-pham.html/{{dongHo._id}}">
+              <img src="{{dongHo.anhMoTa}}" alt="{{dongHo.tenDongHo}}">
+            </a>
+          </div>
+          <div class="cart-info">
+            <a href="/san-pham.html/{{dongHo._id}}" class="cart-name">
+              {{dongHo.tenDongHo}}
+            </a>
+            <div class="cart-price-row">
+              <span class="cart-price">{{ dongHo.giaBan}} đ</span>
+              <span class="cart-old-price">{{ dongHo.giaGoc}} đ</span>
+            </div>
+            <div>
+              <span class="cart-badge">
+                <span class="dot"></span>
+                {{dongHo.trangThai}}
+              </span>
+            </div>
+            <div class="cart-qty">
+              <button class="btn-qty-minus" type="button">−</button>
+              <input
+                type="number"
+                class="qty-input"
+                max="{{dongHo.soLuong}}"
+                value="{{soLuongMua}}"
+                readonly
+              >
+              <button class="btn-qty-plus" type="button">+</button>
+            </div>
+            <div class="cart-action">
+              <a href="/san-pham.html/{{dongHo._id}}" class="btn-detail">
+                Xem sản phẩm
+              </a>
+              <form action="/cart/delete/{{_id}}" method="POST" class="form-delete" style="display:inline">
+                <button class="btn-delete" type="submit">
+                  Xóa
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      {{else}}
+        <div class="cart-empty">
+          Giỏ hàng của bạn đang trống.
+        </div>
+      {{/if}}
+    </div>
+    <!-- RIGHT -->
+    <div class="cart-right">
+      <div class="cart-title">Đơn hàng</div>
+      <div class="cart-row">
+        <span>Sản phẩm đã chọn</span>
+        <span id="total-product">0</span>
+      </div>
+      <div class="cart-row">
+        <span>Tổng tiền</span>
+        <span class="cart-total" id="total-price">0 đ</span>
+      </div>
+      <form action="/order/create" method="POST" id="order-form">
+        <input type="hidden" name="selectedItems" id="selected-items-input">
+        <input type="hidden" name="tongTien" id="tong-tien-input">
+        <button type="submit" class="cart-order" id="btn-order" disabled>Đặt hàng</button>
+      </form>
+      <div class="cart-note">
+        🔒 Thanh toán bảo mật & an toàn
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Confirm Dialog -->
+<div id="confirm-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:999; align-items:center; justify-content:center;">
+  <div id="confirm-box" style="background:#fff; border-radius:14px; padding:28px 28px 22px; width:340px; max-width:90vw; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,.15);">
+    <div style="font-size:17px; font-weight:700; color:#111; margin-bottom:8px;">Xóa sản phẩm?</div>
+    <div style="font-size:14px; color:#666; margin-bottom:22px;" id="confirm-msg">Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?</div>
+    <div style="display:flex; gap:10px;">
+      <button id="confirm-cancel" style="flex:1; height:42px; border:1.5px solid #ddd; background:#fff; color:#444; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer;">Hủy</button>
+      <button id="confirm-ok" style="flex:1; height:42px; border:none; background:#e53e3e; color:#fff; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer;">Xóa</button>
+    </div>
+  </div>
+</div>
+

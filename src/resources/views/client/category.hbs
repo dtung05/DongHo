@@ -1,0 +1,46 @@
+<div style="width:70%; margin-left: 15%;">
+  <div class="product-wrap">
+    <div class="category-intro">
+  <h3>{{danhmuc.tenLoai}}</h3>
+  <img src="{{danhmuc.anhLoai}}" alt="">
+  <p>{{danhmuc.moTa}}</p>
+</div>
+  <div class="product-grid">
+    
+    {{#each dongHo}}
+      <a href="/san-pham.html/{{this._id}}" class="product-card">
+
+        <div class="product-image">
+          <img src="{{this.anhMoTa}}" alt="{{this.tenDongHo}}" />
+        </div>
+
+        <div class="product-body">
+
+          <div class="product-name">
+            {{this.tenDongHo}}
+          </div>
+
+          <div class="product-desc">
+            Trạng thái: {{this.trangThai}}
+          </div>
+
+          <div class="product-footer">
+
+            <span class="product-price">
+              {{this.giaBan}} đ
+            </span>
+
+            <span class="product-buy">
+              Mua ngay
+            </span>
+
+          </div>
+
+        </div>
+
+      </a>
+    {{/each}}
+
+  </div>
+</div>
+</div>

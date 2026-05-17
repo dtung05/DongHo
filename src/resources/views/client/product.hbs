@@ -1,0 +1,536 @@
+
+
+
+
+  <div class="pd-grid">
+    <div class="pd-gallery">
+      <div class="pd-gallery__main">
+        <span class="pd-badge" id="pd-badge">{{ketqua.dongho.tyLeGiamGia}}%</span>
+        <img id="pd-img-main" src="{{ketqua.dongho.anhMoTa}}" alt="{{ketqua.dongho.tenDongHo}}" >
+      </div>
+      <div class="pd-thumbs" id="pd-thumbs"></div>
+    </div>
+    <div class="pd-info">
+      <div>
+        <p class="pd-tag" id="pd-tag">Đồng Hồ Cao Cấp</p>
+        <h1 class="pd-name" id="pd-name">{{ketqua.dongho.tenDongHo}}</h1>
+      </div>
+
+      <div class="pd-rating">
+        <span class="pd-stars">★★★★★</span>
+        <span class="pd-rcount" id="pd-rcount">(128 đánh giá)</span>
+      </div>
+
+      <div class="pd-price">
+        <span class="pd-price__cur" id="pd-gia">₫</span>
+        <span class="pd-price__orig" id="pd-goc">{{ketqua.dongho.giaBan}}</span>
+        <span class="pd-price__pct" id="pd-pct">{{ketqua.dongho.tyLeGiamGia}}%</span>
+      </div>
+
+
+
+      <div class="pd-specs">
+        <div class="pd-spec"><span class="pd-spec__lbl">Giới tính</span><span class="pd-spec__val" id="pd-gt">{{ketqua.thongsokithuat.gioiTinh}}</span></div>
+        <div class="pd-spec"><span class="pd-spec__lbl">Mặt kính</span><span class="pd-spec__val" id="pd-mk">{{ketqua.thongsokithuat.matKinh}}</span></div>
+        <div class="pd-spec"><span class="pd-spec__lbl">Độ dày</span><span class="pd-spec__val" id="pd-dd">{{ketqua.thongsokithuat.doDay}}</span></div>
+        <div class="pd-spec"><span class="pd-spec__lbl">Chất liệu</span><span class="pd-spec__val" id="pd-cl">{{ketqua.thongsokithuat.chatLieu}}</span></div>
+        <div class="pd-spec"><span class="pd-spec__lbl">Dây đeo</span><span class="pd-spec__val" id="pd-de">{{ketqua.thongsokithuat.dayDeo}}</span></div>
+        <div class="pd-spec"><span class="pd-spec__lbl">Trạng thái</span><span class="pd-spec__val" id="pd-tt"> {{ketqua.dongho.trangThai}}</span></div>
+      </div>
+
+      <hr class="pd-hr">
+
+      <div class="pd-stock">
+        <span class="pd-dot" id="pd-dot"></span>
+        <span>  {{ketqua.dongho.trangThai}} <strong id="pd-sl">7</strong> sản phẩm</span>
+      </div>
+<form action="" method="post">
+<input type="hidden" name="idDongHo" value="{{ketqua.dongho._id}}">
+<input type="hidden" name="soLuong" value="{{ketqua.dongho.soLuong}}">
+      <div class="pd-qty-row">
+        <span class="pd-qty-lbl">Số lượng</span>
+        <div class="pd-qty">
+          <button type="button" onclick="pdQty(-1)">−</button>
+          <input class="pd-qty__n" type="number" value="1" min="1" id="pd-qty" name = "soLuongMua">
+          <button type="button" onclick="pdQty(1)">+</button>
+        </div>
+      </div>
+<br>
+      <div class="pd-actions">
+        <button class="pd-btn-cart" formaction="/cart/store.html" > Thêm vào giỏ hàng</button>
+       <button class="pd-btn-cart" formaction="/order/create" >🛒Đặt hàng</button>
+      </div>
+    </div>
+  </div>
+</form>
+  <div class="pd-tabs">
+
+    <div class="pd-tabs__nav">
+      <button class="pd-tab-btn active" onclick="pdTab(this,'pd-t1')">Thông Số</button>
+      <button class="pd-tab-btn" onclick="pdTab(this,'pd-t2')">Mô Tả</button>
+      <button class="pd-tab-btn" onclick="pdTab(this,'pd-t3')">Đánh Giá</button>
+    </div>
+
+    <div class="pd-tab-panel active" id="pd-t1">
+  <table class="pd-tbl">
+    <tr><td>Giới tính</td><td id="ts-gt">Nam</td></tr>
+    <tr><td>Mặt kính</td><td id="ts-mk">Sapphire chống xước, phủ chống phản chiếu</td></tr>
+    <tr><td>Độ dày</td><td id="ts-dd">12.5 mm</td></tr>
+    <tr><td>Chất liệu vỏ</td><td id="ts-cl">Thép Oystersteel 904L</td></tr>
+    <tr><td>Dây đeo</td><td id="ts-de">Dây Oyster 3 mắt xích, khóa Oysterlock</td></tr>
+    <tr><td>Giá bán</td><td id="ts-gia">95.200.000 ₫</td></tr>
+    <tr><td>Số lượng còn lại</td><td id="ts-sl">7 sản phẩm</td></tr>
+    <tr><td>Tình trạng</td><td id="ts-tt">Mới 100% – Chính hãng</td></tr>
+  </table>
+   <div class="pd-desc">
+        <p>Rolex Submariner Date là biểu tượng của đồng hồ lặn cao cấp, ra đời từ năm 1953 và liên tục được cải tiến. Với thiết kế bền vững và chức năng chuyên nghiệp, đây là lựa chọn của những người yêu thích phong cách và hiệu suất.</p>
+        <iframe width="100%" height="70%" src="https://www.youtube.com/embed/gYZLlaJysCo?si=ZcMJAhZ5wB4dzHKm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <p>Bộ máy Calibre 3235 tự động cung cấp sự chính xác vượt trội với trữ cót 70 giờ, đáp ứng tiêu chuẩn Superlative Chronometer (sai số ±2 giây/ngày).</p>
+      </div>
+ </div>
+
+<div class="pd-tab-panel" id="pd-t2" style="gap:30px">
+  <!-- BẢO HÀNH & HẬU MÃI -->
+  <div class="policy-box" style="flex:1">
+    <h2>CHÍNH SÁCH BẢO HÀNH & HẬU MÃI</h2>
+
+    <p>
+      Tất cả các đồng hồ Citizen mua tại Đồng Hồ Tân Tân đều được bảo hành theo hai chính sách:
+      bảo hành Quốc Tế và bảo hành tại Tân Tân kể từ ngày mua trong điều kiện cho phép.
+      Kể từ tháng 01.2026, hãng Citizen tăng thời gian bảo hành toàn cầu lên 3 năm...
+    </p>
+
+    <p>
+      <b>Bảo hành Quốc Tế:</b> 3 năm theo chính sách hãng Citizen (từ 01.2026).
+      <br>
+      <b>Bảo hành tại Tân Tân:</b> Tổng 5 năm (bao gồm quốc tế) + miễn phí thay pin trọn đời đối với Quartz.
+    </p>
+
+    <p>
+      Đồng Hồ Tân Tân là trung tâm bảo hành ủy quyền chính thức, kỹ thuật được đào tạo bởi hãng...
+    </p>
+  </div>
+  <!-- ĐIỀU KIỆN -->
+  <div class="policy-box" style="flex:1" >
+    <h2>ĐIỀU KIỆN & TRƯỜNG HỢP BẢO HÀNH</h2>
+
+    <h4>Điều kiện được bảo hành</h4>
+    <ul>
+      <li>Có phiếu bảo hành hoặc biên nhận hợp lệ</li>
+      <li>Phiếu còn nguyên vẹn, không rách hoặc sửa chữa</li>
+      <li>Còn trong thời gian bảo hành</li>
+      <li>Chỉ thay linh kiện hỏng, không đổi đồng hồ mới</li>
+    </ul>
+
+    <h4>Trường hợp không bảo hành</h4>
+    <ul>
+      <li>Hư hỏng do va đập, bảo quản sai cách</li>
+      <li>Vào nước sai tiêu chuẩn chống nước</li>
+      <li>Phiếu bảo hành bị rách, mờ</li>
+      <li>Tự ý sửa chữa bên ngoài hãng</li>
+    </ul>
+  </div> 
+</div>
+    </div>
+
+    <div class="pd-tab-panel" id="pd-t3" style="gap:20px; width 80%; margin-left: 10%;">
+      <div class="comment-box "  >
+      {{!-- Thống kê đánh giá --}}
+      <h3>Thống kê đánh giá</h3>
+      <div class="pd-rev-summary">
+          <div class="pd-rev-score">
+          <div class="pd-rev-num" id="pd-avg">4.8</div>
+          <div class="pd-rev-stars">★★★★★</div>
+          <div class="pd-rev-total" id="pd-rtotal">128 đánh giá</div>
+        </div>
+        <div class="pd-bars" id="pd-bars"></div>
+      </div>
+      <div class="comment-box" style="width: 100%;">
+  <h3>Đăng bình luận</h3>
+
+  <form action="" method="post" class="comment-form">
+
+    <div class="form-group">
+      <label for="name">Họ tên</label>
+      <input type="text" id="name" name="name" placeholder="Nhập họ tên..." required>
+    </div>
+<input type="hidden" name="idDongHo" value="{{ketqua.dongho._id}}">
+   
+
+    <div class="form-group">
+      <label for="rating">Đánh giá</label>
+      <select id="rating" name="rating">
+        <option value="5">★★★★★ - Rất tốt</option>
+        <option value="4">★★★★ - Tốt</option>
+        <option value="3">★★★ - Bình thường</option>
+        <option value="2">★★ - Không hài lòng</option>
+        <option value="1">★ - Tệ</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Nội dung bình luận</label>
+      <textarea id="content" name="content" rows="4" placeholder="Viết bình luận..." required></textarea>
+    </div>
+
+    <button type="submit">Gửi bình luận</button>
+
+  </form>
+      </div>
+      </div>
+
+      <div class="comment-box"  style="width: 40%;">
+        <h3>Phần bình luận</h3>
+          <div id="pd-revlist">
+  {{#each ketqua.danhgia}}
+  <div class="pd-rev-card">
+    <div class="pd-rev-hdr">
+      <div>
+        <div class="pd-rev-name">
+          Người dùng
+        </div>
+        <div class="pd-rev-date">
+          {{this.ngayDanhGia}}
+        </div>
+      </div>
+      <span class="pd-rev-stars2">
+        {{#if (eq this.soSao 5)}}★★★★★{{/if}}
+        {{#if (eq this.soSao 4)}}★★★★☆{{/if}}
+        {{#if (eq this.soSao 3)}}★★★☆☆{{/if}}
+        {{#if (eq this.soSao 2)}}★★☆☆☆{{/if}}
+        {{#if (eq this.soSao 1)}}★☆☆☆☆{{/if}}
+      </span>
+    </div>
+    <p class="pd-rev-text">
+      {{this.noiDung}}
+    </p>
+  </div>
+  {{/each}}
+</div>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<div class="pd-modal" id="pd-modal">
+  <div class="pd-modal__inner">
+    <button class="pd-modal__close" onclick="pdCloseVideo()">✕</button>
+    <video id="pd-video" controls src=""></video>
+  </div>
+</div>
+
+
+<script>
+  function fmt(n){
+  return Number(n).toLocaleString('vi-VN') + ' ₫';
+}
+
+const D = {
+  dongho: {
+    tenDongHo: "{{ketqua.dongho.tenDongHo}}",
+    giaBan: {{ketqua.dongho.giaBan}},
+    soLuong: {{ketqua.dongho.soLuong}},
+    trangThai: "{{ketqua.dongho.trangThai}}",
+    tyLeGiamGia: {{ketqua.dongho.tyLeGiamGia}}
+  },
+
+  thongsokithuat: {
+    gioiTinh: "{{ketqua.thongsokithuat.gioiTinh}}",
+    matKinh: "{{ketqua.thongsokithuat.matKinh}}",
+    doDay: "{{ketqua.thongsokithuat.doDay}}",
+    chatLieu: "{{ketqua.thongsokithuat.chatLieu}}",
+    dayDeo: "{{ketqua.thongsokithuat.dayDeo}}"
+  },
+
+anhsanpham: [
+  {
+    path: "{{ketqua.dongho.anhMoTa}}"
+  },
+
+  {{#each ketqua.anhsanpham}}
+  {
+    path: "{{this.path}}"
+  }{{#unless @last}},{{/unless}}
+  {{/each}}
+], danhgia: [
+    {{#each ketqua.danhgia}}
+      {
+        noiDung: "{{this.noiDung}}",
+        soSao: {{this.soSao}},
+        ngayDanhGia: "{{this.ngayDanhGia}}"
+      },
+    {{/each}}
+  ]
+};
+
+function render(){
+
+  // Giá
+  const giaSauGiam =
+    D.dongho.giaBan -
+    (D.dongho.giaBan * D.dongho.tyLeGiamGia / 100);
+
+  document.getElementById('pd-gia').textContent =
+    fmt(giaSauGiam);
+
+  document.getElementById('pd-goc').textContent =
+    fmt(D.dongho.giaBan);
+
+  document.getElementById('pd-pct').textContent =
+    '-' + D.dongho.tyLeGiamGia + '%';
+
+  document.getElementById('pd-badge').textContent =
+    '-' + D.dongho.tyLeGiamGia + '%';
+
+  // Số lượng
+  document.getElementById('pd-sl').textContent =
+    D.dongho.soLuong;
+
+  document.getElementById('pd-qty').max =
+    D.dongho.soLuong;
+
+  // Trạng thái kho
+  if(D.dongho.soLuong === 0){
+    document.getElementById('pd-dot').classList.add('out');
+  }
+  else if(D.dongho.soLuong < 5){
+    document.getElementById('pd-dot').classList.add('low');
+  }
+
+  // Thông số
+  document.getElementById('ts-gt').textContent =
+    D.thongsokithuat.gioiTinh;
+
+  document.getElementById('ts-mk').textContent =
+    D.thongsokithuat.matKinh;
+
+  document.getElementById('ts-dd').textContent =
+    D.thongsokithuat.doDay;
+
+  document.getElementById('ts-cl').textContent =
+    D.thongsokithuat.chatLieu;
+
+  document.getElementById('ts-de').textContent =
+    D.thongsokithuat.dayDeo;
+
+  document.getElementById('ts-gia').textContent =
+    fmt(D.dongho.giaBan);
+
+  document.getElementById('ts-sl').textContent =
+    D.dongho.soLuong + ' sản phẩm';
+
+  document.getElementById('ts-tt').textContent =
+    D.dongho.trangThai;
+
+  // Ảnh sản phẩm
+  const thumbsEl = document.getElementById('pd-thumbs');
+
+  thumbsEl.innerHTML = '';
+
+  D.anhsanpham.forEach((a, i) => {
+
+    const d = document.createElement('div');
+
+    d.className =
+      'pd-thumb' + (i === 0 ? ' active' : '');
+
+    d.onclick = () => switchImg(d, a.path);
+
+    d.innerHTML = `
+      <img src="${a.path}" alt="">
+    `;
+
+    thumbsEl.appendChild(d);
+  });
+
+  // Ảnh chính
+  if(D.anhsanpham.length > 0){
+    document.getElementById('pd-img-main').src =
+      D.anhsanpham[0].path;
+  }
+
+  renderReviews();
+}
+
+function switchImg(el, src){
+
+  document.getElementById('pd-img-main').src = src;
+
+  document.querySelectorAll('.pd-thumb')
+    .forEach(t => t.classList.remove('active'));
+
+  el.classList.add('active');
+}
+
+function renderReviews(){
+
+  // Tính rating
+  let tongSao = 0;
+
+  D.danhgia.forEach(r => {
+    tongSao += r.soSao;
+  });
+
+  const total = D.danhgia.length;
+
+  const avg =
+    total > 0
+      ? (tongSao / total).toFixed(1)
+      : 0;
+
+  document.getElementById('pd-avg').textContent =
+    avg;
+
+  document.getElementById('pd-rtotal').textContent =
+    total + ' đánh giá';
+
+  document.getElementById('pd-rcount').textContent =
+    '(' + total + ' đánh giá)';
+
+  // Thống kê số sao
+  const dist = {
+    1:0,
+    2:0,
+    3:0,
+    4:0,
+    5:0
+  };
+
+  D.danhgia.forEach(r => {
+    dist[r.soSao]++;
+  });
+
+  const bars = document.getElementById('pd-bars');
+
+  bars.innerHTML = '';
+
+  [5,4,3,2,1].forEach(s => {
+
+    const c = dist[s];
+
+    const p =
+      total > 0
+        ? Math.round(c / total * 100)
+        : 0;
+
+    bars.innerHTML += `
+      <div class="pd-bar-row">
+        <span class="pd-bar-lbl">${s}★</span>
+
+        <div class="pd-bar-track">
+          <div
+            class="pd-bar-fill"
+            style="width:${p}%"
+          ></div>
+        </div>
+
+        <span class="pd-bar-cnt">${c}</span>
+      </div>
+    `;
+  });
+
+  // Danh sách đánh giá
+  const list = document.getElementById('pd-revlist');
+
+  list.innerHTML = '';
+
+  D.danhgia.forEach(r => {
+
+    const stars =
+      '★'.repeat(r.soSao) +
+      '☆'.repeat(5 - r.soSao);
+
+    const dt =
+      new Date(r.ngayDanhGia)
+      .toLocaleDateString('vi-VN');
+
+    list.innerHTML += `
+      <div class="pd-rev-card">
+
+        <div class="pd-rev-hdr">
+
+          <div>
+            <div class="pd-rev-name">
+              Người dùng
+            </div>
+
+            <div class="pd-rev-date">
+              ${dt}
+            </div>
+          </div>
+
+          <span class="pd-rev-stars2">
+            ${stars}
+          </span>
+
+        </div>
+
+        <p class="pd-rev-text">
+          ${r.noiDung}
+        </p>
+
+      </div>
+    `;
+  });
+}
+
+function pdQty(d){
+
+  const inp =
+    document.getElementById('pd-qty');
+
+  let v =
+    parseInt(inp.value) + d;
+
+  if(v < 1){
+    v = 1;
+  }
+
+  if(v > D.dongho.soLuong){
+    v = D.dongho.soLuong;
+  }
+
+  inp.value = v;
+}
+
+
+function pdTab(btn, id){
+
+  document.querySelectorAll('.pd-tab-btn')
+    .forEach(b => b.classList.remove('active'));
+
+  document.querySelectorAll('.pd-tab-panel')
+    .forEach(p => p.classList.remove('active'));
+
+  btn.classList.add('active');
+
+  document.getElementById(id)
+    .classList.add('active');
+}
+
+function pdOpenVideo(){
+
+  document.getElementById('pd-modal')
+    .classList.add('open');
+}
+
+function pdCloseVideo(){
+
+  document.getElementById('pd-modal')
+    .classList.remove('open');
+
+  document.getElementById('pd-video')
+    .pause();
+}
+
+document.getElementById('pd-modal')
+.addEventListener('click', function(e){
+
+  if(e.target === this){
+    pdCloseVideo();
+  }
+});
+
+render();
+</script>

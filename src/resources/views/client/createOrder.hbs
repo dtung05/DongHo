@@ -1,0 +1,230 @@
+<style>
+  .checkout-order {
+    margin-top: 30px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    padding: 30px;
+  }
+
+  .checkout-order h2 {
+    font-size: 32px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #111;
+  }
+
+  .checkout-row {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1.5fr 1.2fr 1.5fr;
+    align-items: center;
+    gap: 15px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    color: #444;
+  }
+
+  .checkout-row span:first-child {
+    font-weight: 600;
+    color: #111;
+  }
+
+  .checkout-row span:nth-child(2) {
+    font-weight: 500;
+    color: #222;
+  }
+
+  .checkout-row.total {
+    margin-top: 15px;
+    border: none;
+    padding-top: 25px;
+    align-items: center;
+  }
+
+  .checkout-row.total span:first-child {
+    font-size: 25px;
+    font-weight: 700;
+    color: #0c0000;
+
+    width: 200px;
+  }
+
+  .checkout-total {
+    grid-column: 5;
+    justify-self: end;
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(75, 2, 2);
+  }
+
+  .checkout-btn {
+    width: 100%;
+    margin-top: 25px;
+    height: 55px;
+    border: none;
+    border-radius: 14px;
+    background: #000;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .checkout-btn:hover {
+    background: #222;
+  }
+
+  /* mobile */
+  @media (max-width: 768px) {
+    .checkout-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 15px 0;
+    }
+
+    .checkout-total {
+      grid-column: auto;
+      justify-self: start;
+      font-size: 28px;
+    }
+
+    .checkout-row.total span:first-child {
+      font-size: 22px;
+    }
+  }
+</style>
+<main class="checkout">
+  <form action="/order/store" method="POST">
+    <div class="checkout-wrap">
+      <!-- LEFT -->
+      <div class="checkout-left">
+        <!-- FORM -->
+        <div class="checkout-box">
+          <div class="checkout-title">
+            Thông tin nhận hàng
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Họ và tên</label>
+              <input
+                type="text"
+                name="tenNguoiNhan"
+                class="form-input"
+                value="{{user.hoTen}}"
+              />
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại</label>
+              <input
+                type="text"
+                name="soDienThoai"
+                class="form-input"
+                value="{{user.soDienThoai}}"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ nhận hàng</label>
+            <textarea
+              name="diaChi"
+              class="form-textarea"
+            >{{user.diaChi}}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Phương thức thanh toán</label>
+            <select name="phuongThuc" class="form-select">
+              <option value="COD">
+                Thanh toán khi nhận hàng
+              </option>
+
+              <option value="BANK">
+                Chuyển khoản ngân hàng
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="checkout-right">
+        <div class="checkout-box">
+          <div class="checkout-title">
+            Sản phẩm đặt hàng
+          </div>
+          <div class="checkout-products">
+            {{#each data}}
+              <input
+                type="hidden"
+                name="order[{{@index}}][idDongHo]"
+                value="{{dongho._id}}"
+              />
+              <input
+                type="hidden"
+                name="order[{{@index}}][soLuongMua]"
+                value="{{soLuongMua}}"
+              />
+              <div class="checkout-product">
+
+                <img src="{{dongho.anhMoTa}}" />
+
+                <div class="checkout-product-info">
+
+                  <div class="checkout-product-name">
+                    {{dongho.tenDongHo}}
+                  </div>
+
+                  <div class="checkout-product-price">
+                    {{dongho.giaBan}}
+                    đ
+                  </div>
+
+                  <div class="checkout-product-qty">
+                    Số lượng:
+                    {{soLuongMua}}
+                  </div>
+                  <div class="checkout-product-qty">
+                    Giảm giá :
+                    {{dongho.tyLeGiamGia}}%
+                  </div>
+
+                </div>
+
+              </div>
+
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="checkout-order">
+        <h2>Đơn hàng</h2>
+
+        {{#each data}}
+          <div class="checkout-row">
+            <span>Sản phẩm</span>
+            <span  >{{dongho.tenDongHo}}</span>
+            {{!-- <span>Giá gốc: {{tong}}</span> --}}
+            <span style="width:250px">Giảm giá: {{giamGia}}</span>
+            <span>Thành tiền: {{thanhTien}}</span>
+          </div>
+        {{/each}}
+        <div class="checkout-row">
+          <span>Phí vận chuyển</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span>0 đ</span>
+        </div>
+        <div class="checkout-row total">
+          <span>Tổng tiền</span>
+          <span class="checkout-total">
+            {{tongTien}}đ
+          </span>
+        </div>
+        <button class="checkout-btn">
+          Xác nhận đặt hàng
+        </button>
+      </div>
+    </div>
+  </form>
+</main>

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const CartController = require("../app/controllers/CartController");
 
 const UserController = require("../app/controllers/UserController");
 
@@ -8,4 +9,5 @@ const UserController = require("../app/controllers/UserController");
 router.post('/authLogin', UserController.authLogin);
 router.post('/dangKy', UserController.dangKy);
 router.get('/logOut', UserController.logOut);
+
 module.exports = router;

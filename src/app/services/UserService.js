@@ -4,6 +4,7 @@ const thongTin = require("../models/ThongTin");
 class UserService{
     async authLogin (req) {
          const user = await taiKhoan.findOne({tenDangNhap: req.body.tenDangNhap});
+         const information  = await thongTin.findOne({idUser: user._id}).lean();
         if(!user){
             return {
                 check : false,
@@ -14,6 +15,9 @@ class UserService{
             req.session.user = {
                 id: user._id,
                 vaiTro:  user.vaiTro,
+                hoTen: information.hoTen,
+                diaChi: information.diaChi,
+                soDienThoai: information.soDienThoai
             } 
             return {
                 check: true,

@@ -5,6 +5,8 @@ const LoaiSanPham = new Schema(
   {
     idLoai: String,
     tenLoai: String,
+    anhLoai: String,
+    moTa: String,
   },
   {
     collection: "loaiSanPham",
