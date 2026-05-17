@@ -2,8 +2,12 @@ const orderService = require("../services/OrderService");
 class OrderController{
     // get lấy danh sách đơn hàng
     async index(req,res){
-        const order = await orderService.index(req);
-        res.send(order);
+        const orders = await orderService.index(req);
+        res.render('client/order', {
+            orders,
+            title: "Đơn hàng",
+            currentStatus: req.params.status || "all"
+        })
     };
     // post đổ dữ liệu vào form xác nhận
     async create(req,res){

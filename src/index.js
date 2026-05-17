@@ -35,7 +35,6 @@ app.use(
 );
 app.use(flash());
 // chuyển đổi sesssion sang locals
-
 app.use((req, res, next) => {
   res.locals.message = req.flash("message")[0];
   res.locals.type = req.flash("type")[0];
@@ -50,9 +49,16 @@ app.engine(
     extname: ".hbs",
     helpers: {
       eq: (a, b) => a === b,
+       ifCond: function (v1, v2, options) {
+        if (v1 === v2) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
+      },
     },
   }),
 );
+
 app.set("view engine", ".hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 
