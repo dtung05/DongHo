@@ -52,7 +52,7 @@ body {
   height: 520px;
   background:
     linear-gradient(135deg, rgba(255,255,255,.82) 40%, rgba(239,246,255,.88)),
-    url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1600') center/cover no-repeat;
+    url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4JRJoAk7Gv7jcrQSaV5b1SWd5MwjpZJIhw&s') center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,8 +168,8 @@ body {
 
 .flash-sale {
   max-width: 1380px;
-  margin: 72px auto;
-  padding: 0 24px;
+  margin: 20px auto;
+  padding: 0 10px;
 }
 
 /* ── Section header ── */

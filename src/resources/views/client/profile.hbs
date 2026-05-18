@@ -1,0 +1,406 @@
+<style>
+  .khoa {
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f3f4f6;
+    font-family: Arial, sans-serif;
+  }
+
+  .profile-page {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px 20px;
+  }
+
+  .profile-container {
+    max-width: 1300px;
+    margin: auto;
+
+    display: flex;
+    gap: 30px;
+  }
+
+  /* SIDEBAR */
+
+  .profile-sidebar {
+    width: 320px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    height: fit-content;
+  }
+
+  .profile-avatar-box {
+    text-align: center;
+
+    margin-bottom: 40px;
+  }
+
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    margin-bottom: 15px;
+
+    border: 4px solid #eee;
+  }
+
+  .profile-avatar-box h2 {
+    margin-bottom: 8px;
+
+    color: #111827;
+  }
+
+  .profile-avatar-box p {
+    color: #777;
+  }
+
+  .profile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .menu-item {
+    height: 55px;
+
+    border-radius: 12px;
+
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+  }
+
+  .menu-item:hover {
+    background: #f3f4f6;
+  }
+
+  .menu-item.active {
+    background: #111827;
+    color: white;
+  }
+
+  /* CONTENT */
+
+  .profile-content {
+    flex: 1;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 40px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .content-header {
+    margin-bottom: 40px;
+  }
+
+  .content-header h1 {
+    margin-bottom: 10px;
+
+    color: #111827;
+  }
+
+  .content-header p {
+    color: #777;
+  }
+
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 20px;
+  }
+
+  .form-group {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    margin-bottom: 10px;
+
+    font-weight: bold;
+
+    color: #374151;
+  }
+
+  .form-group input,
+  .form-group select {
+    height: 52px;
+
+    border: 1px solid #ddd;
+    border-radius: 12px;
+
+    padding: 0 15px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #111827;
+  }
+
+  .btn-save {
+    width: 220px;
+    height: 52px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #111827;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+  }
+
+  .btn-save:hover {
+    opacity: 0.9;
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 992px) {
+    .profile-container {
+      flex-direction: column;
+    }
+
+    .profile-sidebar {
+      width: 100%;
+    }
+
+    .form-row {
+      flex-direction: column;
+    }
+  }
+  .btn-edit,
+  .btn-huy {
+    width: 180px;
+    height: 50px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+  }
+
+  /* Nút sửa */
+
+  .btn-edit {
+    background: #dbdde0;
+    color: rgb(19, 0, 0);
+  }
+
+  .btn-edit:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  .btn-huy {
+    background: #f3f1f1;
+    color: rgb(19, 0, 0);
+  }
+  .btn-huy:hover {
+    transform: translateY(-2px);
+  }
+</style>
+<div class="profile-page">
+  <div class="profile-container">
+    <!-- SIDEBAR -->
+    <div class="profile-sidebar">
+      <div class="profile-avatar-box">
+        <img src="{{thongtin.avatar}}" class="profile-avatar" />
+        <h2>Vũ Đức Tùng</h2>
+        <p>Thành viên</p>
+      </div>
+      <div class="profile-menu">
+        <div class="menu-item active">
+          <i class="fa-solid fa-user"></i>
+          <span>Thông tin cá nhân</span>
+        </div>
+        <div class="menu-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>Đổi mật khẩu</span>
+        </div>
+      </div>
+    </div>
+    <!-- CONTENT -->
+    <div class="profile-content">
+      <div class="content-header">
+        <h1>Thông tin tài khoản</h1>
+        <p>Cập nhật thông tin cá nhân của bạn</p>
+      </div>
+      <form
+        method="post"
+        action="/user/set-profile"
+        class="profile-form"
+        enctype="multipart/form-data"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label>Họ và tên</label>
+            <input
+              class="khoa"
+              type="text"
+              name="hoTen"
+              placeholder="Nhập họ tên"
+              value="{{thongtin.hoTen}}"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input
+              class="khoa"
+              name="soDienThoai"
+              type="text"
+              required
+              placeholder="Nhập số điện thoại"
+              value="{{thongtin.soDienThoai}}"
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Giới tính</label>
+            <select class="khoa" name="gioiTinh">
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              class="khoa"
+              required
+              type="email"
+              name="gmail"
+              placeholder="Nhập email"
+              value="{{taikhoan.gmail}}"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Địa chỉ</label>
+          <input
+            class="khoa"
+            name="diaChi"
+            type="text"
+            placeholder="Nhập địa chỉ"
+            required
+            value="{{thongtin.diaChi}}"
+          />
+        </div>
+        <div class="form-group">
+          <label>Ảnh đại diện</label>
+          <input type="file" class="khoa" name="avatar" />
+        </div>
+        <div style="display:flex; gap:30px">
+          <button type="submit" class="btn-save">
+            Lưu thông tin
+          </button>
+          <button type="button" class="btn-edit">
+            Sửa thông tin
+          </button>
+          <button type="button" class="btn-huy" style="display: none;">
+            Hủy
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+const dsInput = document.querySelectorAll(".khoa");
+const btnSua = document.querySelector(".btn-edit");
+const btnHuy = document.querySelector(".btn-huy");
+const form = document.querySelector(".profile-form");
+let dangSua = false;
+function khoa(status) {
+  dsInput.forEach((item) => {
+    if (
+      item.tagName === "SELECT" ||
+      item.type === "file"
+    ) {
+      item.disabled = status;
+    }
+    else {   item.readOnly = status;
+    }
+  });
+
+}
+
+khoa(true);
+form.addEventListener("submit", (e) => {
+  if (!dangSua) {
+    e.preventDefault();
+    return;
+  }
+
+});
+
+btnSua.onclick = function () {
+
+  khoa(false);
+
+  dangSua = true;
+
+  btnSua.style.display = "none";
+
+  btnHuy.style.display = "block";
+
+};
+
+
+btnHuy.onclick = function () {
+  location.reload();
+
+};
+</script>

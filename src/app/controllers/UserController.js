@@ -15,7 +15,7 @@ class UserController{
         req.flash("type", ketQua.check);
         return res.redirect("/");
     }
-    logOut(req, res, next) {
+    async logOut(req, res, next) {
 
     delete req.session.user;
 
@@ -23,7 +23,25 @@ class UserController{
     req.flash("type", true);
 
     return res.redirect("/");
-}
+    }
+    // method: get xem trang thông tin
+    async profile(req,res){
+        const ketqua = await UserService.profile(req);
+        res.render("client/profile",{
+            ...ketqua,
+            title:"Thông tin cá nhân",
+        })
+    }
+    // method: post Sửa thông tin cá nhân
+    async setProfile(req,res){
+        const ketqua = await UserService.setProfile(req);
+        req.flash("type", ketqua);
+        if(!ketqua){
+            req.flash("message","Cập nhật thất bại");
+        }
+        return res.redirect('/user/profile');
+       
+    }
 }
 
 module.exports = new UserController();

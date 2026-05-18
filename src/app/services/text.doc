@@ -1,6 +1,7 @@
 1) xử lý bất đồng bộ
-
 const [user, order] = await Promise.all([
     User.find(),
     Order.find()
 ]);
+
+npm install multer // cài thư viện

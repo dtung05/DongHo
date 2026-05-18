@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const CartController = require("../app/controllers/CartController");
-
+const middleware= require("../middleware/Middleware");
+const upload= require("../middleware/upload");
 const UserController = require("../app/controllers/UserController");
 
-
-// router.get('/tra-cuu', UserController.traCuu);
+router.post('/set-profile',upload.single('avatar'), UserController.setProfile);
+router.get('/profile',middleware.auth, UserController.profile);
 router.post('/authLogin', UserController.authLogin);
 router.post('/dangKy', UserController.dangKy);
 router.get('/logOut', UserController.logOut);
