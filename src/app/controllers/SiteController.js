@@ -16,6 +16,24 @@ class SiteController {
       })
       .catch(next);
   }
+  async sale(req,res){
+    const dongHo = await DongHo.find({})
+  .sort({ tyLeGiamGia: -1 })
+  .limit(10)
+  .lean();
+
+    res.render('client/sale', {
+      dongHo,
+      title: "Giảm giá",
+      style:"sale",
+    })
+  }
+  lienHe(req,res){
+    res.render('client/call',{
+      title: "Liên hệ",
+      style: 'call',
+    } )
+  }
   traCuu(req, res) {
     res.render("client/traCuu");
   }

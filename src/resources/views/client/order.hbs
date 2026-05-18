@@ -242,17 +242,48 @@
           </div>
 
           {{#ifCond trangThai "Chờ xác nhận"}}
-            <form action="/order/cancel/{{_id}}" method="POST">
-              <button class="btn-cancel">
-                Hủy đơn
-              </button>
-            </form>
+           <form action="/order/cancel/" method="POST" class="cancel-form">
+  <input type="hidden" name="idDonHang" value="{{_id}}">
+
+  <button type="button" class="btn-cancel">
+    Hủy đơn
+  </button>
+</form>
           {{/ifCond}}
 
         </div>
 
       </div>
     {{/each}}
+<!-- Confirm Dialog -->
+<div id="confirm-overlay"
+  style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:999; align-items:center; justify-content:center;">
+
+  <div id="confirm-box"
+    style="background:#fff; border-radius:14px; padding:28px 28px 22px; width:340px; max-width:90vw; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,.15);">
+
+    <div style="font-size:17px; font-weight:700; color:#111; margin-bottom:8px;">
+      Hủy đơn hàng?
+    </div>
+
+    <div style="font-size:14px; color:#666; margin-bottom:22px;" id="confirm-msg">
+      Bạn có chắc muốn hủy đơn hàng này không?
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button type="button" id="confirm-cancel"
+        style="flex:1; height:42px; border:1.5px solid #ddd; background:#fff; color:#444; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer;">
+        Không
+      </button>
+
+      <button type="button" id="confirm-ok"
+        style="flex:1; height:42px; border:none; background:#e53e3e; color:#fff; border-radius:9px; font-size:14px; font-weight:600; cursor:pointer;">
+        Hủy đơn
+      </button>
+    </div>
+  </div>
+</div>
+
 
   {{else}}
 
@@ -263,3 +294,32 @@
   {{/if}}
 
 </div>
+<script>
+  const cancelBtn = document.querySelector(".btn-cancel");
+  const overlay = document.getElementById("confirm-overlay");
+  const confirmCancelBtn = document.getElementById("confirm-cancel");
+  const confirmOkBtn = document.getElementById("confirm-ok");
+  const cancelForm = document.querySelector(".cancel-form");
+
+  // Mở popup
+  cancelBtn.addEventListener("click", () => {
+    overlay.style.display = "flex";
+  });
+
+  // Đóng popup
+  confirmCancelBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+  });
+
+  // Xác nhận hủy
+  confirmOkBtn.addEventListener("click", () => {
+    cancelForm.submit();
+  });
+
+  // Click nền để đóng
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      overlay.style.display = "none";
+    }
+  });
+</script>

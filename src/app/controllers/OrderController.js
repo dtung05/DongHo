@@ -29,5 +29,15 @@ class OrderController{
         return res.redirect("/");
         
     }
+    // post: Hủy đơn hàng
+    async cancel(req,res){
+        const ketqua = await orderService.cancel(req);
+        if(ketqua){
+            req.flash("message", "Hủy đơn hàng thành công");
+        }
+        req.flash("message","Hủy đơn hàng thất bại");
+        req.flash('type', ketqua);
+        return res.redirect(req.get("referer") || "/");
+    }
 }
 module.exports = new OrderController();

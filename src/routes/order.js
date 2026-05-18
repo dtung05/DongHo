@@ -7,5 +7,5 @@ router.get('/index',middleware.auth,OrderController.index );
 
 router.post("/create", middleware.auth, OrderController.create);
 router.post("/store", middleware.auth, OrderController.store);
-
+router.post("/cancel", middleware.auth, OrderController.cancel);
 module.exports = router;

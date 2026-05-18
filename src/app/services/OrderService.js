@@ -160,5 +160,38 @@ class OrderService {
       return false;
     }
   }
+  async cancel(req){
+   const idDonHang = req.body.idDonHang;
+   const order = await donhang.findById(idDonHang).lean();
+   if(!order){
+      return false;
+   }
+const dsDongHo = order.dongHo;
+   const ketqua = await donhang.updateOne({
+      _id: idDonHang
+   },{
+    $set: {
+      trangThai: "Hủy",
+    }
+   });
+   if(ketqua.modifiedCount > 0){
+      await Promise.all(
+         dsDongHo.map(item => {
+            return dongho.updateOne(
+               {
+                  _id: item.idSanPham
+               },
+               {
+                  $inc: {
+                     soLuong: item.soLuong
+                  }
+               }
+            );
+         })
+      );
+      return true;
+   }
+   return false;
+  }
 }
 module.exports = new OrderService();
