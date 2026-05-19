@@ -39,5 +39,8 @@ class OrderController{
         req.flash('type', ketqua);
         return res.redirect(req.get("referer") || "/");
     }
+
+    // staff
+    
 }
 module.exports = new OrderController();

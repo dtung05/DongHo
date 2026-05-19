@@ -210,6 +210,29 @@ class ProductService {
       return [];
     }
   }
+  async delete(id) {
+    try {
+      const result = await DongHo.findByIdAndDelete(id);
+
+      if (!result) {
+        return {
+          message: "Không tìm thấy sản phẩm",
+          check: false,
+        };
+      }
+
+      return {
+        message: "Xóa sản phẩm thành công",
+        check: true,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        message: "Lỗi server khi xóa",
+        check: false,
+      };
+    }
+  }
 
 }
 module.exports = new ProductService();

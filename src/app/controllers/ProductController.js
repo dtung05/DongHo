@@ -32,6 +32,7 @@ class ProductController {
       old: req.flash("old")[0] || {},
     });
   }
+  // POST thực hiện thêm sản phẩm
   async store(req, res) {
     const ketqua = await ProductService.store(req.body);
 
@@ -42,6 +43,7 @@ class ProductController {
     req.flash("type", ketqua.check);
     return res.redirect("/san-pham.html/create");
   }
+  // get Trang quản lý
   async quanLy(req,res){
     const ketqua = await ProductService.quanLy(req);
 
@@ -50,6 +52,7 @@ class ProductController {
       title: "Quản lý sản phẩm"
     });
   }
+  // get Trang sửa
   async edit(req,res){
     const ketqua = await ProductService.edit(req);
 
@@ -60,6 +63,7 @@ class ProductController {
       layout: "staff",
     })
   }
+  //POST thực hiện sửa
   async update(req, res) {
   const result = await ProductService.update(req);
 
@@ -67,14 +71,23 @@ class ProductController {
   req.flash("type", result.check);
 
   return res.redirect("/san-pham.html/edit/"+req.body.id);
-}
-async search(req, res) {
-  const result = await ProductService.search(req.body);
+  }
+//Post tìm sản phẩm
+  async search(req, res) {
+    const result = await ProductService.search(req.body);
 
-  return res.render("staff/quanly", {
-    layout: "staff",
-   ...result,
-  });
+    return res.render("staff/quanly", {
+      layout: "staff",
+     ...result,
+    });
+  }
+  async delete(req, res) {
+  const result = await ProductService.delete(req.params.id);
+
+  req.flash("message", result.message);
+  req.flash("type", result.check);
+
+  return res.redirect("/san-pham.html/quanly");
 }
 }
 

@@ -4,6 +4,7 @@ const middlewate = require("../middleware/Middleware");
 const ProductController = require("../app/controllers/ProductController");
 router.get("/create", ProductController.create);
 router.get("/edit/:id", ProductController.edit);
+router.get("/delete/:id", ProductController.delete);
 router.post("/update", ProductController.update);
 router.post("/search", ProductController.search);
 router.get("/quanly", ProductController.quanLy);
