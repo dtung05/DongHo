@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
+const middlewate = require("../middleware/Middleware");
 const ProductController = require("../app/controllers/ProductController");
-
+router.get("/create", ProductController.create);
+router.get("/edit/:id", ProductController.edit);
+router.post("/update", ProductController.update);
+router.post("/search", ProductController.search);
+router.get("/quanly", ProductController.quanLy);
+router.post("/store", ProductController.store);
 router.get("/:id", ProductController.index);
 module.exports = router;

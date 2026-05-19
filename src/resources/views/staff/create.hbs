@@ -1,0 +1,221 @@
+<style>
+  /* CẤU HÌNH LAYOUT CONTENT CHUNG */
+  .content-container {
+    width: 100%;
+    background-color: #f8f9fa; /* Nền xám cực nhẹ để nổi bật form trắng */
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+  }
+
+  .form-card {
+    background: #ffffff;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-title {
+    margin-0: 0;
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 15px;
+  }
+
+  /* CHIA LƯỚI BỐ TRÍ FORM (GRID) */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .full-width {
+    grid-column: span 2;
+  }
+
+  /* ĐỊNH DẠNG CÁC Ô NHẬP LIỆU */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-bottom: 8px;
+  }
+
+  .form-group input, 
+  .form-group select {
+    padding: 12px 14px;
+    font-size: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus, 
+  .form-group select:focus {
+    border-color: #1a1a1a; /* Khi click vào sẽ đổi sang viền đen mảnh */
+  }
+
+  /* THÔNG SỐ CHI TIẾT (SUB-SECTION) */
+  .section-subtitle {
+    grid-column: span 2;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding-top: 15px;
+    border-top: 1px dashed #e0e0e0;
+  }
+
+  /* NÚT BẤM MÀU ĐEN (BLACK BUTTON) */
+  .form-actions {
+    grid-column: span 2;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-submit {
+    background-color: #1a1a1a; /* Nút màu đen tinh tế */
+    color: #ffffff;
+    border: none;
+    padding: 14px 35px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+  }
+
+  .btn-submit:hover {
+    background-color: #333333; /* Đổi màu xám đen nhẹ khi hover */
+  }
+
+  .btn-submit:active {
+    transform: scale(0.98);
+  }
+</style>
+
+<div class="content-container">
+  <div class="form-card">
+    <h3 class="form-title">Thêm Sản Phẩm Đồng Hồ Mới</h3>
+    
+    <form action="/san-pham.html/store" method="POST">
+      <div class="form-grid">
+        
+        <div class="form-group">
+          <label for="tenDongHo">Tên đồng hồ <span style="color: red;">*</span></label>
+          <input type="text" value="{{old.tenDongHo}}" id="tenDongHo" name="tenDongHo" placeholder="Ví dụ: Casio Classic MTP-V001D" required>
+        </div>
+
+        <div class="form-group">
+          <label for="idLoai">Danh mục loại đồng hồ</label>
+        <select id="idLoai" name="idLoai">
+  <option value="">-- Chọn loại đồng hồ --</option>
+{{#each loaisp}}
+<option value="{{idLoai}}" {{#if (eq old.idLoai idLoai)}}selected{{/if}}>{{tenLoai}}</option>
+{{/each}}
+  
+
+</select>
+        </div>
+
+        <div class="form-group">
+          <label for="giaBan">Giá bán (VND) <span style="color: red;">*</span></label>
+          <input type="number"
+  id="giaBan"
+  name="giaBan"
+  value="{{old.giaBan}}"
+  min="0"
+  required>
+        </div>
+
+        <div class="form-group">
+          <label for="tyLeGiamGia">Tỷ lệ giảm giá (%)</label>
+         <input type="number"
+  id="tyLeGiamGia"
+  name="tyLeGiamGia"
+  value="{{old.tyLeGiamGia}}"
+  min="0"
+  max="100">
+        </div>
+
+        <div class="form-group">
+          <label for="soLuong">Số lượng nhập kho <span style="color: red;">*</span></label>
+         <input type="number"
+  id="soLuong"
+  name="soLuong"
+  value="{{old.soLuong}}"
+  min="0"
+  required>
+        </div>
+
+ 
+
+        <div class="form-group">
+          <label for="anhMoTa">Ảnh đại diện sản phẩm (Link URL Google/Internet)</label>
+         <input type="text"
+  id="anhMoTa"
+  name="anhMoTa"
+  value="{{old.anhMoTa}}"
+  placeholder="Dán link ảnh">
+        </div>
+
+        <div class="form-group">
+          <label for="anhmota_path">Danh sách ảnh chi tiết (Link URL cách nhau bởi dấu phẩy nếu có nhiều ảnh)</label>
+       <input type="text"
+  name="anhmota_link"
+  value="{{old.anhmota_link}}"
+  placeholder="link1, link2, link3">
+        </div>
+
+  
+
+        <div class="section-subtitle">⚙️ Thông số kỹ thuật chi tiết</div>
+
+        <div class="form-group">
+          <label for="gioiTinh">Giới tính phù hợp</label>
+          <input type="text"  value="{{old.thongSo.gioiTinh}}" id="gioiTinh" name="thongSo[gioiTinh]" placeholder="Ví dụ: Nam, Nữ, Unisex">
+        </div>
+
+        <div class="form-group">
+          <label for="matKinh">Chất liệu mặt kính</label>
+          <input type="text"  value="{{old.thongSo.matKinh}}" id="matKinh" name="thongSo[matKinh]" placeholder="Ví dụ: Kính Sapphire, Mineral Crystal">
+        </div>
+
+        <div class="form-group">
+          <label for="doDay">Độ dày mặt số</label>
+          <input type="text"   value="{{old.thongSo.doDay}}" id="doDay" name="thongSo[doDay]" placeholder="Ví dụ: 8.5 mm">
+        </div>
+
+        <div class="form-group">
+          <label for="chatLieu">Chất liệu vỏ máy</label>
+          <input type="text" id="chatLieu"  value="{{old.thongSo.chatLieu}}" name="thongSo[chatLieu]" placeholder="Ví dụ: Thép không gỉ 316L">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="dayDeo">Loại dây đeo</label>
+          <input type="text" id="dayDeo"  value="{{old.thongSo.dayDeo}}" name="thongSo[dayDeo]" placeholder="Ví dụ: Dây da chính hãng, Dây kim loại">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Lưu sản phẩm</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

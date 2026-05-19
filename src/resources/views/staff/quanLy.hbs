@@ -1,0 +1,583 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* KHỐI TRỐNG THÔNG BÁO (EMPTY STATE CODES) */
+  .empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-top: none; /* Bỏ viền trên để liền mạch hoàn hảo với thanh tiêu đề table */
+    border-radius: 0 0 12px 12px; /* Bo góc mượt ở phía dưới */
+    text-align: center;
+  }
+
+  /* Biểu tượng hộp trống / tìm kiếm trống */
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #a0aec0;
+    animation: iconBounce 2s ease infinite;
+  }
+
+  /* Dòng thông báo chính */
+  .empty-state-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a5568;
+    margin: 0 0 8px 0;
+  }
+
+  /* Dòng mô tả phụ nhỏ bên dưới */
+  .empty-state-subtext {
+    font-size: 13px;
+    color: #718096;
+    margin: 0 0 20px 0;
+  }
+
+  /* Nút thêm nhanh nếu cần kích thích hành động (Tùy chọn) */
+  .btn-empty-action {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+
+  .btn-empty-action:hover {
+    background-color: #333333;
+  }
+
+  /* Hiệu ứng nhấp nhô nhẹ tạo điểm nhấn */
+  @keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    padding: 32px 40px;
+    overflow: auto;
+  }
+
+  /* ── SECTION CARD ── */
+  .card {
+    background: #fff;
+    border: 1px solid #ddd8ce;
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+  }
+
+  /* ── SEARCH / FILTER FORM ── */
+  .filter-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 14px;
+    align-items: flex-end;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field label {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  .field input,
+  .field select {
+    height: 40px;
+    border: 1px solid #d0cbc2;
+    border-radius: 4px;
+    background: #faf8f5;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: #1a1a1a;
+    padding: 0 12px;
+    outline: none;
+    transition: border-color 0.18s;
+  }
+
+  .field input:focus,
+  .field select:focus { border-color: #1a1a1a; background: #fff; }
+  .field input::placeholder { color: #aaa; }
+  .field select option { background: #fff; }
+
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .btn {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: opacity 0.15s, background 0.15s;
+  }
+
+  .btn-dark { background: #1a1a1a; color: #fff; }
+  .btn-dark:hover { background: #333; }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid #d0cbc2;
+    color: #555;
+  }
+  .btn-outline:hover { border-color: #999; color: #1a1a1a; }
+
+  .btn-success {
+    background: #2d6a4f;
+    color: #fff;
+  }
+  .btn-success:hover { background: #245a42; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .result-info {
+    font-size: 13px;
+    color: #777;
+  }
+
+  .result-info strong { color: #1a1a1a; }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    border: 1px solid #ddd8ce;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    background: #f5f0e8;
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #777;
+    border-bottom: 1px solid #ddd8ce;
+    white-space: nowrap;
+  }
+
+  thead th:last-child { text-align: center; }
+
+  tbody tr { border-bottom: 1px solid #ede9e1; transition: background 0.12s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #faf8f5; }
+
+  td {
+    padding: 13px 14px;
+    font-size: 13.5px;
+    vertical-align: middle;
+  }
+
+  /* Product cell */
+  .cell-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .product-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border: 1px solid #e0dbd2;
+    border-radius: 4px;
+    background: #f5f0e8;
+    flex-shrink: 0;
+  }
+
+  .product-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+    line-height: 1.4;
+    max-width: 300px;
+  }
+
+  .product-id {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 2px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .price-main {
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+
+  .price-original {
+    font-size: 12px;
+    color: #aaa;
+    text-decoration: line-through;
+    white-space: nowrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge-green { background: #e8f5ee; color: #2d6a4f; border: 1px solid #b7deca; }
+  .badge-red   { background: #fdecea; color: #b94040; border: 1px solid #f0c4c4; }
+  .badge-discount { background: #fff3e0; color: #b06000; border: 1px solid #ffd699; }
+
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  .loai-tag {
+    font-size: 11.5px;
+    color: #888;
+    background: #f0ece5;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid #ddd8ce;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Actions */
+  .action-cell { text-align: center; white-space: nowrap; }
+
+  .btn-icon {
+    width: 30px; height: 30px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    margin: 0 2px;
+    transition: background 0.14s;
+  }
+
+  .btn-icon-edit { background: #f0ece5; color: #555; border: 1px solid #ddd8ce; }
+  .btn-icon-edit:hover { background: #e5e0d6; }
+
+  .btn-icon-del { background: #fdecea; color: #b94040; border: 1px solid #f0c4c4; }
+  .btn-icon-del:hover { background: #f8d7d7; }
+
+  /* Empty */
+  .empty-state {
+    text-align: center;
+    padding: 56px 20px;
+    color: #bbb;
+  }
+  .empty-state p { font-size: 13.5px; margin-top: 10px; }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 20px;
+  }
+
+  .pg-btn {
+    min-width: 32px; height: 32px;
+    padding: 0 8px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #ddd8ce;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.14s;
+  }
+
+  .pg-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .pg-btn.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; font-weight: 600; }
+
+  /* ── MODAL ── */
+  .overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .overlay.open { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 560px;
+    padding: 32px;
+    position: relative;
+    animation: slideUp 0.2s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ede9e1;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 18px;
+    background: none; border: none;
+    font-size: 18px; color: #aaa;
+    cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: #1a1a1a; }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .form-grid .span2 { grid-column: 1 / -1; }
+
+  .modal .field input,
+  .modal .field select {
+    width: 100%;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #ede9e1;
+  }
+
+  /* Confirm modal */
+  .confirm-modal { max-width: 400px; text-align: center; }
+  .confirm-modal .icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .confirm-modal .confirm-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .confirm-modal .confirm-desc { font-size: 13px; color: #777; line-height: 1.6; }
+
+  .btn-danger { background: #b94040; color: #fff; }
+  .btn-danger:hover { background: #9e3535; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 5px;
+    font-size: 13.5px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.22s;
+    pointer-events: none;
+    border-left: 3px solid #2d6a4f;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.err { border-left-color: #b94040; }
+  /* ACTION BUTTON LINK STYLE */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px 30px;
+  margin: 0 3px;
+
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+/* NÚT SỬA */
+.btn-icon-edit {
+  background: #f0ece5;
+  border: 1px solid #ddd8ce;
+  color: #555;
+}
+
+.btn-icon-edit:hover {
+  background: #e5e0d6;
+  color: #1a1a1a;
+  transform: translateY(-1px);
+}
+
+/* NÚT XÓA */
+.btn-icon-del {
+  background: #fdecea;
+  border: 1px solid #f0c4c4;
+  color: #b94040;
+}
+
+.btn-icon-del:hover {
+  background: #f8d7d7;
+  color: #9e3535;
+  transform: translateY(-1px);
+}
+
+/* CLICK EFFECT */
+.btn-icon:active {
+  transform: scale(0.96);
+}
+</style>
+    <div class="card">
+      <div class="card-title">Quản Lý Sản Phẩm Đồng Hồ</div>
+        <form action="/san-pham.html/search" method="post">
+      <div class="filter-row">
+        <div class="field">
+          <label>Tên đồng hồ</label>
+          <input type="text" id="searchName" name="tenDongHo" placeholder="Ví dụ: Casio, Certina, Seiko...">
+        </div>
+        <div class="field">
+          <label>Danh mục loại</label>
+          <select id="searchLoai" name="idLoai">
+            <option value="">-- Tất cả --</option>
+           {{#each loaisp}}
+                <option value="{{idLoai}}" {{#ifCond dongho.idLoai idLoai}}selected{{/ifCond}}>{{tenLoai}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="field">
+          <label>Trạng thái</label>
+          <select id="searchStatus" name="trangThai">
+            <option value="">-- Tất cả --</option>
+            <option value="Còn hàng">Còn hàng</option>
+            <option value="Hết hàng">Hết hàng</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-dark" >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Tìm kiếm
+          </button>
+        </div>
+      </div>
+      </form>
+    </div>
+        <tbody id="tbody">
+        {{#if dongho}}
+        <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>Loại</th>
+            <th>Giá bán</th>
+            <th>Giảm giá</th>
+            <th>Số lượng</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+            {{#each dongho}}
+           <tr>
+            <td>
+              <div class="cell-product">
+                <img class="product-thumb" src="{{anhMoTa}}" />
+                <div>
+                  <div class="product-name">{{tenDongHo}}</div>
+                  <div class="product-id">{{_id}}</div>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <span class="loai-tag">{{idLoai}}</span>
+            </td>
+
+            <td>
+              <div class="price-main">{{giaSauGiam}}đ</div>
+              <div class="price-original">{{giaBan}}đ</div>
+            </td>
+
+            <td>
+              <span class="badge badge-discount">
+                <span class="dot"></span>{{tyLeGiamGia}}
+              </span>
+            </td>
+
+            <td>{{soLuong}}</td>
+
+            <td>
+              <span class="badge badge-green">
+                <span class="dot"></span> {{trangThai}}
+              </span>
+            </td>
+
+            <td class="action-cell">
+            <a href="/san-pham.html/edit/{{_id}}" class="btn-icon btn-icon-edit">✏️ Sửa</a>
+
+            <a href="/san-pham.html/delete/{{_id}}" class="btn-icon btn-icon-del"
+               onclick="return confirm('Xóa sản phẩm này?')">
+              🗑️ Xóa
+            </a>
+              </td>
+            </tr>
+            {{/each}}
+        {{else}}
+           <div class="empty-state-container">
+
+  <h4 class="empty-state-text">Không có sản phẩm nào được tìm thấy</h4>
+  <p class="empty-state-subtext">Vui lòng thử lại với từ khóa khác hoặc làm mới bộ lọc tìm kiếm.</p>
+  <a href="/san-pham.html/create" class="btn-empty-action">➕ Thêm sản phẩm mới</a>
+</div>
+        {{/if}}
+    </tbody>
+    </table>
+     

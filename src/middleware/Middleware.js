@@ -7,6 +7,14 @@ class Middleware {
     req.flash("type", false);
     return res.redirect("/");
   }
+  checkRoleStaff(req, res, next) {
+    if (req.session.user.vaiTro === "staff") {
+      return next();
+    }
+    req.flash("message", "Không đủ quyền hạn để truy cập");
+    req.flash("type", false);
+    return res.redirect("/");
+  }
 }
 
 module.exports = new Middleware();

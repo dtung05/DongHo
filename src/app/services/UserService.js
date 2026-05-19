@@ -49,7 +49,7 @@ class UserService {
       });
       if (taiKhoanMoi._id) {
         const thongTinMoi = await thongTin.create({
-          userId: taiKhoanMoi._id,
+          idUser: taiKhoanMoi._id,
           hoTen: req.body.hoTen,
           gioiTinh: req.body.gioiTinh,
         });
@@ -77,9 +77,16 @@ class UserService {
   }
   async profile(req) {
     const idUser = req.session.user.id;
+
     const [taikhoan, thongtin, thongke] = await Promise.all([
       taiKhoan.findById(idUser).lean(),
-      thongTin.findOne({ idUser: idUser }).lean(),
+
+      thongTin
+        .findOne({
+          idUser: idUser,
+        })
+        .lean(),
+
       donHang.aggregate([
         {
           $group: {
@@ -91,81 +98,86 @@ class UserService {
         },
       ]),
     ]);
+
+    const dsTrangThai = ["Chờ xác nhận", "Đang giao", "Đã giao", "Hủy"];
+    const thongKeDayDu = dsTrangThai.map((trangThai) => {
+      const tim = thongke.find((i) => i._id === trangThai);
+      return {
+        trangThai,
+        soLuong: tim ? tim.soLuong : 0,
+      };
+    });
+
+    console.log(thongKeDayDu);
+
     return {
       taikhoan,
       thongtin,
-      thongke,
+      thongKeDayDu,
     };
   }
 
-async setProfile(req) {
-  const idUser = req.session.user.id;
-  const thongtin = req.body;
-  let avatar = null;
-  if (req.file) {
-    avatar = "/uploads/" + req.file.filename;
-  }
-  try {
-    // Lấy thông tin user hiện tại
-    const userInfo = await thongTin.findOne({
-      idUser: idUser,
-    });
-    const dataUpdate = {
-      hoTen: thongtin.hoTen,
-      soDienThoai: thongtin.soDienThoai,
-      gioiTinh: thongtin.gioiTinh,
-      diaChi: thongtin.diaChi,
-    };
-    if (avatar) {
-      if (
-        userInfo.avatar &&
-        userInfo.avatar !== "/images/default-avatar.png"
-      ) {
-
-        const duongDanAnhCu = path.join(
-          __dirname,
-          "../../public",
-          userInfo.avatar
-        );
-        fs.unlink(duongDanAnhCu, (err) => {
-          if (err) {
-            console.log("Không thể xóa ảnh cũ");
-          }
-        });
-      }
-      dataUpdate.avatar = avatar;
+  async setProfile(req) {
+    const idUser = req.session.user.id;
+    const thongtin = req.body;
+    let avatar = null;
+    if (req.file) {
+      avatar = "/uploads/" + req.file.filename;
     }
-    await taiKhoan.updateOne(
-      {
-        _id: idUser,
-      },
-      {
-        $set: {
-          gmail: thongtin.gmail,
-        },
-      },
-    );
-    await thongTin.updateOne(
-      {
+    try {
+      // Lấy thông tin user hiện tại
+      const userInfo = await thongTin.findOne({
         idUser: idUser,
-      },
-      {
-        $set: dataUpdate,
-      },
-    );
-    req.flash(
-      "message",
-      "Cập nhật thông tin thành công"
-    );
-    return true;
-  } catch (error) {
-    console.log(error);
-    req.flash(
-      "message",
-      "Lỗi database"
-    );
-    return false;
+      });
+      const dataUpdate = {
+        hoTen: thongtin.hoTen,
+        soDienThoai: thongtin.soDienThoai,
+        gioiTinh: thongtin.gioiTinh,
+        diaChi: thongtin.diaChi,
+      };
+      if (avatar) {
+        if (
+          userInfo.avatar &&
+          userInfo.avatar !== "/images/default-avatar.png"
+        ) {
+          const duongDanAnhCu = path.join(
+            __dirname,
+            "../../public",
+            userInfo.avatar,
+          );
+          fs.unlink(duongDanAnhCu, (err) => {
+            if (err) {
+              console.log("Không thể xóa ảnh cũ");
+            }
+          });
+        }
+        dataUpdate.avatar = avatar;
+      }
+      await taiKhoan.updateOne(
+        {
+          _id: idUser,
+        },
+        {
+          $set: {
+            gmail: thongtin.gmail,
+          },
+        },
+      );
+      await thongTin.updateOne(
+        {
+          idUser: idUser,
+        },
+        {
+          $set: dataUpdate,
+        },
+      );
+      req.flash("message", "Cập nhật thông tin thành công");
+      return true;
+    } catch (error) {
+      console.log(error);
+      req.flash("message", "Lỗi database");
+      return false;
+    }
   }
-}
 }
 module.exports = new UserService();

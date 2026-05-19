@@ -5,3 +5,5 @@ const [user, order] = await Promise.all([
 ]);
 
 npm install multer // cài thư viện
+
+return res.redirect(req.get("referer") || "/"); về trang cũ

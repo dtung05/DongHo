@@ -31,7 +31,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
     },
-  })
+  }),
 );
 app.use(flash());
 // chuyển đổi sesssion sang locals
@@ -47,18 +47,20 @@ app.engine(
   "hbs",
   engine({
     extname: ".hbs",
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, "resources/views/layouts"),
     helpers: {
       eq: (a, b) => a === b,
-       ifCond: function (v1, v2, options) {
-        if (v1 === v2) {
-          return options.fn(this);
-        }
+      ifCond: function (v1, v2, options) {
+        if (v1 === v2) return options.fn(this);
         return options.inverse(this);
       },
     },
   }),
 );
 
+app.set("view engine", "hbs"); 
+app.set("views", path.join(__dirname, "resources/views"));
 app.set("view engine", ".hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 

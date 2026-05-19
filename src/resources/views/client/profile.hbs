@@ -1,4 +1,45 @@
 <style>
+  .thongke-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+
+    margin-bottom: 35px;
+  }
+
+  .thongke-item {
+    background: #f9fafb;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    border: 1px solid #ececec;
+
+    transition: 0.3s;
+  }
+
+  .thongke-item:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .thongke-title {
+    font-size: 15px;
+
+    color: #6b7280;
+
+    margin-bottom: 12px;
+  }
+
+  .thongke-number {
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #111827;
+  }
   .khoa {
   }
 
@@ -252,6 +293,7 @@
   }
 </style>
 <div class="profile-page">
+
   <div class="profile-container">
     <!-- SIDEBAR -->
     <div class="profile-sidebar">
@@ -273,6 +315,21 @@
     </div>
     <!-- CONTENT -->
     <div class="profile-content">
+      <div class="content-header">
+        <h1>Thống kê đơn hàng</h1>
+      </div>
+      <div class="thongke-box">
+        {{#each thongKeDayDu}}
+          <div class="thongke-item">
+            <div class="thongke-title">
+              {{trangThai}}
+            </div>
+            <div class="thongke-number">
+              {{soLuong}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
       <div class="content-header">
         <h1>Thông tin tài khoản</h1>
         <p>Cập nhật thông tin cá nhân của bạn</p>
@@ -358,49 +415,15 @@
   </div>
 </div>
 <script>
-const dsInput = document.querySelectorAll(".khoa");
-const btnSua = document.querySelector(".btn-edit");
-const btnHuy = document.querySelector(".btn-huy");
-const form = document.querySelector(".profile-form");
-let dangSua = false;
-function khoa(status) {
-  dsInput.forEach((item) => {
-    if (
-      item.tagName === "SELECT" ||
-      item.type === "file"
-    ) {
-      item.disabled = status;
-    }
-    else {   item.readOnly = status;
-    }
-  });
-
-}
-
-khoa(true);
-form.addEventListener("submit", (e) => {
-  if (!dangSua) {
-    e.preventDefault();
-    return;
-  }
-
-});
-
-btnSua.onclick = function () {
-
-  khoa(false);
-
-  dangSua = true;
-
-  btnSua.style.display = "none";
-
-  btnHuy.style.display = "block";
-
-};
-
-
-btnHuy.onclick = function () {
-  location.reload();
-
-};
+  const dsInput = document.querySelectorAll(".khoa"); const btnSua =
+  document.querySelector(".btn-edit"); const btnHuy =
+  document.querySelector(".btn-huy"); const form =
+  document.querySelector(".profile-form"); let dangSua = false; function
+  khoa(status) { dsInput.forEach((item) => { if ( item.tagName === "SELECT" ||
+  item.type === "file" ) { item.disabled = status; } else { item.readOnly =
+  status; } }); } khoa(true); form.addEventListener("submit", (e) => { if
+  (!dangSua) { e.preventDefault(); return; } }); btnSua.onclick = function () {
+  khoa(false); dangSua = true; btnSua.style.display = "none";
+  btnHuy.style.display = "block"; }; btnHuy.onclick = function () {
+  location.reload(); };
 </script>

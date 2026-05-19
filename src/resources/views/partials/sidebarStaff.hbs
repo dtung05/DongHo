@@ -1,0 +1,138 @@
+<style>
+  /* CẤU HÌNH LAYOUT TỔNG */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #1a1a1a;
+  }
+
+  /* Khối bọc chính đảm bảo Sidebar và Content nằm song song dọc màn hình */
+  .app-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* SIDEBAR MÀU SÁNG - KHỚP VỚI LAYOUT */
+  .sidebar {
+    width: 350px;
+    background: #ffffff; 
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-right: 1px solid #e9ecef; /* Đường phân cách mờ tinh tế với Content */
+    flex-shrink: 0; /* Giữ nguyên kích thước sidebar không bị bóp méo */
+  }
+
+  /* Header Sidebar */
+  .sidebar-header {
+    padding: 24px 20px;
+    border-bottom: 1px solid #f8f9fa;
+  }
+
+  .sidebar-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .sidebar-header p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #8c98a5;
+    font-weight: 500;
+  }
+
+  /* Danh sách Menu điều hướng */
+  .menu {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    flex: 1;
+  }
+
+  .menu li a {
+    display: flex;
+    align-items: center;
+    padding: 13px 20px;
+    color: #495057; /* Chữ xám đậm dễ nhìn trên nền trắng */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  /* Hiệu ứng di chuột (Hover) */
+  .menu li a:hover {
+    background: #f1f3f5;
+    color: #000000;
+    padding-left: 24px; /* Nhấp nhô nhẹ tạo độ mượt */
+  }
+
+  /* Trạng thái Active (Đã đổi từ Dashboard sang Sản phẩm cho khớp trang hiện tại) */
+  .menu li.active a {
+    background: #1a1a1a; /* Nút chuyển sang đen tối giản đồng bộ nút lưu */
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* Footer chứa nút Đăng xuất */
+  .sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid #f1f3f5;
+  }
+
+  .sidebar-footer a {
+    color: #dc3545;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+  }
+
+  .sidebar-footer a:hover {
+    opacity: 0.8;
+  }
+
+  /* PHẦN CONTENT (Vùng hiển thị Form bên phải) */
+  .main-content {
+    flex: 1;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+  }
+</style>
+
+<div class="app-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>⌚ WatchStore</h2>
+      <p>Staff Panel</p>
+    </div>
+
+    <ul class="menu">
+      <li><a href="/san-pham.html/quanly">Quản lý sản phẩm</a></li>
+      <li><a href="/order">🛒 Đơn hàng</a></li>
+      <li class="active"><a href="/san-pham.html/create">Thêm sản phẩm</a></li>
+      <li><a href="/customer">👤 Khách hàng</a></li>
+      <li><a href="/comment">💬 Bình luận</a></li>
+      <li><a href="/inventory">📦 Kho hàng</a></li>
+      <li><a href="/staff">⚙️ Nhân viên</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <a href="/logout">🚪 Đăng xuất</a>
+    </div>
+  </aside>
+
+  <main class="main-content">
+      </main>
+
+</div>

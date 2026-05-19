@@ -6,7 +6,6 @@ const DongHoSchema = new Schema(
   {
     idLoai: {
       type: String,
-      ref: "loaiDongHo",
     },
     tenDongHo: {
       type: String,
@@ -16,14 +15,13 @@ const DongHoSchema = new Schema(
       type: Number,
       required: true,
     },
-    giaGoc: Number,
     giaSauGiam: {
       type: Number,
       default: 0,
     },
     soLuong: {
       type: Number,
-      require: true,
+      required: true,
     },
     anhMoTa: String,
     trangThai: {
@@ -34,28 +32,26 @@ const DongHoSchema = new Schema(
       type: Number,
       default: 0,
     },
+    anhmota: [
+      {
+        path: String,
+      },
+    ],
+
+    thongSo: {
+      gioiTinh: String,
+      matKinh: String,
+      doDay: String,
+      chatLieu: String,
+      dayDeo: String,
+    },
   },
   {
     collection: "dongHo",
     timestamps: true,
   },
 );
-DongHoSchema.pre("save", function(next) {
-  this.giaSauGiam =
-    this.giaBan -
-    (this.giaBan / 100 * this.tyLeGiamGia);
-  next();
-});
-DongHoSchema.pre("findOneAndUpdate", async function(next) {
-  const update = this.getUpdate();
-  const doc = await this.model.findOne(this.getQuery());
-  const giaBan =
-    update.giaBan ?? doc.giaBan;
-  const tyLeGiamGia =
-    update.tyLeGiamGia ?? doc.tyLeGiamGia;
-  update.giaSauGiam =
-    giaBan -
-    (giaBan / 100 * tyLeGiamGia);
-  next();
-});
+
+
+
 module.exports = mongoose.model("DongHo", DongHoSchema);

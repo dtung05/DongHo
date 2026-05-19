@@ -6,6 +6,13 @@ class UserController{
         const ketQua = await UserService.authLogin(req);
         req.flash("message", ketQua.message);
         req.flash("type", ketQua.check);
+        if(ketQua.check){
+            if(req.session.user.vaiTro == 'staff'){
+                return res.redirect("/san-pham.html/create");
+            }else{
+                return res.redirect(req.get("referer") || "/");
+            }
+        }
         return res.redirect(req.get("referer") || "/");
     }
 
